@@ -1,5 +1,5 @@
 const fs = require('fs');
-const marked = require('marked');
+const { marked } = require('marked');
 
 const [,, inputFile, outputFile] = process.argv;
 
