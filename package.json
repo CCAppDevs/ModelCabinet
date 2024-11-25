@@ -1,0 +1,15 @@
+{
+  "name": "modelcabinet",
+  "version": "1.0.0",
+  "description": "ModelCabinet is a 3d printing management tool for managing 3d printer files in a web-facing database. Planned features include:\r - Model storage\r - Model visualization without download\r - Model project management\r - Model categorization and tagging\r - Model searching\r - Model support generation (long-term)\r - Model merging (long-term)",
+  "main": "parse-changelog.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "marked": "^15.0.2"
+  }
+}
