@@ -1,0 +1,57 @@
+name: Generate Changelog JSON
+
+on:
+  push:
+    branches:
+      - main
+      - development
+  release:
+    types:
+      - published
+
+jobs:
+  generate-changelog:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Checkout the repository
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # Step 2: Detect the Branch
+      - name: Set Changelog Filenames
+        run: |
+          if [ "${{ github.ref_name }}" = "main" ]; then
+            echo "CHANGELOG_FILE=CHANGELOG.md" >> $GITHUB_ENV
+            echo "JSON_FILE=Changelog.json" >> $GITHUB_ENV
+          elif [ "${{ github.ref_name }}" = "development" ]; then
+            echo "CHANGELOG_FILE=CHANGELOG-dev.md" >> $GITHUB_ENV
+            echo "JSON_FILE=Changelog-dev.json" >> $GITHUB_ENV
+          fi
+
+      # Step 3: Install Ruby and GitHub Changelog Generator
+      - name: Install Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.0'
+      - name: Install GitHub Changelog Generator
+        run: gem install github_changelog_generator
+
+      # Step 4: Generate Markdown Changelog
+      - name: Generate Markdown Changelog
+        run: github_changelog_generator -u ${{ github.repository_owner }} -p ${{ github.event.repository.name }} -o ${{ env.CHANGELOG_FILE }}
+
+      # Step 5: Convert Markdown to JSON
+      - name: Convert Markdown to JSON
+        run: node parse-changelog.js ${{ env.CHANGELOG_FILE }} ${{ env.JSON_FILE }}
+
+      # Step 6: Commit and Push Changelog Files
+      - name: Commit and Push Changelog Files
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add ${{ env.CHANGELOG_FILE }} ${{ env.JSON_FILE }}
+          git commit -m "chore: update changelog for ${{ github.ref_name }} branch"
+          git push
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
