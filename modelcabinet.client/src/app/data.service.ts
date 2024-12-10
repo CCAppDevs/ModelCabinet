@@ -13,12 +13,12 @@ export class DataService {
   project$: BehaviorSubject<Project> = new BehaviorSubject<Project>({
     projectId: 0,
     name: '',
-    creationDate: new Date,
-    modifiedDate: new Date,
+    creationDate: new Date(),
+    modifiedDate: new Date(),
     description: '',
     author: '',
     version: '',
-    assets: {$values:[]},
+    assets: [],
     shortDescription: ''
   });
 
@@ -27,12 +27,11 @@ export class DataService {
     assetId: 0,
     name: '',
     path: '',
-    dateCreation: new Date,
-    dateUpdated: new Date,
+    dateCreation: new Date(),
+    dateUpdated: new Date(),
     fileSize: 0,
-    projectId: 0,
+    projectId: 0
   });
-
   constructor(private http: HttpClient) {
 
   }
