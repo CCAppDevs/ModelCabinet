@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ModelCabinet.Server.Data;
 
@@ -11,9 +12,11 @@ using ModelCabinet.Server.Data;
 namespace ModelCabinet.Server.Migrations
 {
     [DbContext(typeof(ModelCabinetContext))]
-    partial class ModelCabinetContextModelSnapshot : ModelSnapshot
+    [Migration("20250206202915_SlugNoSpacesConstraint")]
+    partial class SlugNoSpacesConstraint
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -60,21 +63,21 @@ namespace ModelCabinet.Server.Migrations
                         new
                         {
                             AssetId = 1,
-                            DateCreation = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DateUpdated = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DateCreation = new DateTime(2025, 2, 6, 12, 29, 14, 314, DateTimeKind.Local).AddTicks(7342),
+                            DateUpdated = new DateTime(2025, 2, 6, 12, 29, 14, 314, DateTimeKind.Local).AddTicks(7347),
                             FileSize = 446684L,
                             Name = "Test Asset",
-                            Path = "D:\\School\\BAS\\ModelCabinetProject\\ModelCabinet\\ModelCabinet.Server\\bin\\Debug\\net8.0\\Assets\\TestProject\\HelloWorld.stl",
+                            Path = "C:\\Users\\gaski\\source\\repos\\ModelCabinet\\ModelCabinet.Server\\bin\\Debug\\net8.0\\Assets\\TestProject\\HelloWorld.stl",
                             ProjectId = 1
                         },
                         new
                         {
                             AssetId = 2,
-                            DateCreation = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DateUpdated = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DateCreation = new DateTime(2025, 2, 6, 12, 29, 14, 314, DateTimeKind.Local).AddTicks(7354),
+                            DateUpdated = new DateTime(2025, 2, 6, 12, 29, 14, 314, DateTimeKind.Local).AddTicks(7356),
                             FileSize = 11285384L,
                             Name = "Benchy",
-                            Path = "D:\\School\\BAS\\ModelCabinetProject\\ModelCabinet\\ModelCabinet.Server\\bin\\Debug\\net8.0\\Assets\\TestProject\\3DBenchy.stl",
+                            Path = "C:\\Users\\gaski\\source\\repos\\ModelCabinet\\ModelCabinet.Server\\bin\\Debug\\net8.0\\Assets\\TestProject\\3DBenchy.stl",
                             ProjectId = 1
                         });
                 });
@@ -126,9 +129,9 @@ namespace ModelCabinet.Server.Migrations
                         {
                             ProjectId = 1,
                             Author = "Author",
-                            CreationDate = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreationDate = new DateTime(2025, 2, 6, 12, 29, 14, 314, DateTimeKind.Local).AddTicks(7022),
                             Description = "Description",
-                            ModifiedDate = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ModifiedDate = new DateTime(2025, 2, 6, 12, 29, 14, 314, DateTimeKind.Local).AddTicks(7069),
                             Name = "Test Project",
                             ShortDescription = "Desc",
                             Slug = "nomen-est-omen",
@@ -138,12 +141,12 @@ namespace ModelCabinet.Server.Migrations
                         {
                             ProjectId = 2,
                             Author = "Author",
-                            CreationDate = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreationDate = new DateTime(2025, 2, 6, 12, 29, 14, 314, DateTimeKind.Local).AddTicks(7074),
                             Description = "Description",
-                            ModifiedDate = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ModifiedDate = new DateTime(2025, 2, 6, 12, 29, 14, 314, DateTimeKind.Local).AddTicks(7075),
                             Name = "Test Project Two",
                             ShortDescription = "Desc",
-                            Slug = "nomen-est-bonum",
+                            Slug = "this is not good",
                             Version = "0.0.1"
                         });
                 });

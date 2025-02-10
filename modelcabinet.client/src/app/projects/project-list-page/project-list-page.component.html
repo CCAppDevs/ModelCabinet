@@ -17,6 +17,24 @@
   </div>
 </div>
 
+<div class="row mt-4">
+  <div class="col text-center">
+    <button class="btn btn-primary me-2"
+            (click)="previousPage()"
+            [disabled]="(currentPage$ | async) === 1">
+      Previous
+    </button>
+    <span class="mx-3">
+      Page {{currentPage$ | async}}
+    </span>
+    <button class="btn btn-primary ms-2"
+            (click)="nextPage()"
+            [disabled]="(currentPage$ | async) === (totalPages$ | async)">
+      Next
+    </button>
+  </div>
+</div>
+
 <!--<a class="dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">Show Raw Data</a>
 <ul class="dropdown-menu">
   <li><pre>{{ projects$ | async | json }}</pre></li>

@@ -9,6 +9,7 @@ import { HelpProjectComponent } from './Help-Page/Help-Page.component';
 import { AssetListComponent } from './asset/asset-list/asset-list.component';
 import { AssetDetailComponent } from './asset/asset-detail/asset-detail.component';
 import { ProfilePageComponent } from './profile-page/profile-page.component';
+import { ComingSoonComponent } from './coming-soon/coming-soon.component';
 
 // TODO: Change Names to actual Module Names
 const routes: Routes = [
@@ -22,7 +23,8 @@ const routes: Routes = [
   { path: 'Help', component: HelpProjectComponent },
   { path: 'Assets', component: AssetListComponent },
   { path: 'Assets/:id', component: AssetDetailComponent},
-  { path: 'User', component: ProfilePageComponent }
+  { path: 'User', component: ProfilePageComponent },
+  { path: 'coming-soon', component: ComingSoonComponent },
 ];
 
 @NgModule({

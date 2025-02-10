@@ -1,0 +1,10 @@
+<div class="card developer-card text-center">
+  <div class="image-container">
+    <img [src]="developer.avatar_url || 'assets/images/dev_placeholder.png'" class="card-img-top" alt="{{ developer.login }}">
+  </div>
+  <div class="card-body">
+    <h5 class="card-title">
+      <a [href]="developer.html_url" target="_blank">{{ developer.login }}</a>
+    </h5>
+  </div>
+</div>

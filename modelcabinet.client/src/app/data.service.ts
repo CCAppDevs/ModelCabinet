@@ -1,8 +1,18 @@
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { BehaviorSubject, Observable, tap } from "rxjs";
 import { Project } from "./Models/project";
 import { Asset } from "./Models/asset";
+
+
+// Interface for the paginated response from the API
+interface ProjectsResponse {
+  projects: Project[];
+  totalProjects: number;
+  currentPage: number;
+  totalPages: number;
+  pageSize: number;
+}
 
 @Injectable({
   providedIn:'root'
@@ -13,8 +23,8 @@ export class DataService {
   project$: BehaviorSubject<Project> = new BehaviorSubject<Project>({
     projectId: 0,
     name: '',
-    creationDate: new Date(),
-    modifiedDate: new Date(),
+    creationDate: new Date,
+    modifiedDate: new Date,
     description: '',
     author: '',
     version: '',
@@ -28,14 +38,17 @@ export class DataService {
     assetId: 0,
     name: '',
     path: '',
-    dateCreation: new Date(),
-    dateUpdated: new Date(),
+    dateCreation: new Date,
+    dateUpdated: new Date,
     fileSize: 0,
     projectId: 0
   });
-  constructor(private http: HttpClient) {
 
-  }
+  // Pagination state management
+  totalPages$: BehaviorSubject<number> = new BehaviorSubject<number>(1);
+  currentPage$: BehaviorSubject<number> = new BehaviorSubject<number>(1);
+
+  constructor(private http: HttpClient) {}
 
   createProject(project: Project) {
     this.http.post<Project>(`/api/Projects`, project).subscribe(data => {
@@ -44,9 +57,21 @@ export class DataService {
     });
   }
 
-  getAllProjects() {
-    this.http.get<Project[]>(`/api/Projects`).subscribe(data => {
-      this.projects$.next(data);
+
+
+  getAllProjects(page?: number, pageSize?: number): void {
+    // Create HTTP parameters for pagination
+    const params = new HttpParams()
+      .set('page', page?.toString() || '1') // Page number to start on
+      .set('pageSize', pageSize?.toString() || '8'); // Number of projects per page
+
+
+    // Make the HTTP request with pagination parameters
+    this.http.get<ProjectsResponse>('/api/Projects', { params }).subscribe(data => {
+      // Update all the BehaviorSubjects with new data
+      this.projects$.next(data.projects);
+      this.totalPages$.next(data.totalPages);
+      this.currentPage$.next(data.currentPage);
     });
   }
 

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
@@ -15,31 +16,33 @@ namespace ModelCabinet.Server.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-
+            
+            // value can be anything
+            DateTime dateTime = new DateTime(2024, 01, 01);
             modelBuilder.Entity<Project>().HasData(
                 new Project
                 {
                     ProjectId = 1,
                     Name = "Test Project",
-                    CreationDate = DateTime.Now,
-                    ModifiedDate = DateTime.Now,
+                    CreationDate = dateTime,
+                    ModifiedDate = dateTime,
                     Description = "Description",
                     Author = "Author",
                     Version = "0.0.1",
                     ShortDescription = "Desc",
-                    Slug = "nomen est omen",
+                    Slug = "nomen-est-omen",
                 },
                 new Project
                 {
                     ProjectId = 2,
                     Name = "Test Project Two",
-                    CreationDate = DateTime.Now,
-                    ModifiedDate = DateTime.Now,
+                    CreationDate = dateTime,
+                    ModifiedDate = dateTime,
                     Description = "Description",
                     Author = "Author",
                     Version = "0.0.1",
                     ShortDescription = "Desc",
-                    Slug = "nomen est omen",
+                    Slug = "nomen-est-bonum",
                 }
             );
 
@@ -49,8 +52,8 @@ namespace ModelCabinet.Server.Data
                     AssetId = 1,
                     Name = "Test Asset",
                     Path = Path.Combine(AppContext.BaseDirectory, "Assets", "TestProject", "HelloWorld.stl"),
-                    DateCreation = DateTime.Now,
-                    DateUpdated = DateTime.Now,
+                    DateCreation = dateTime,
+                    DateUpdated = dateTime,
                     FileSize = 446684,
                     ProjectId = 1
                 },
@@ -59,12 +62,13 @@ namespace ModelCabinet.Server.Data
                     AssetId = 2,
                     Name = "Benchy",
                     Path = Path.Combine(AppContext.BaseDirectory, "Assets", "TestProject", "3DBenchy.stl"),
-                    DateCreation = DateTime.Now,
-                    DateUpdated = DateTime.Now,
+                    DateCreation = dateTime,
+                    DateUpdated = dateTime,
                     FileSize = 11285384,
                     ProjectId = 1
                 }
             );
+
 
             // auto load any navigation properties using this pattern
             modelBuilder.Entity<Project>().Navigation(p => p.Assets).AutoInclude();

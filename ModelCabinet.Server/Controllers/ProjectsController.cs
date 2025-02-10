@@ -23,9 +23,28 @@ namespace ModelCabinet.Server.Controllers
 
         // GET: api/Projects
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Project>>> GetProject()
+        public async Task<ActionResult<object>> GetProject([FromQuery] int page = 1, [FromQuery] int pageSize = 8)
         {
-            return await _context.Project.ToListAsync();
+            if (page < 1) page = 1; // Page to start on
+            if (pageSize < 1) pageSize = 8; // Number of items per page
+
+            var totalProjects = await _context.Project.CountAsync();
+            var totalPages = (int)Math.Ceiling((double)totalProjects / pageSize);
+
+            var projects = await _context.Project
+                .OrderByDescending(p => p.ModifiedDate) // Most recent first
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync();
+
+            return Ok(new
+            {
+                projects,
+                totalProjects,
+                currentPage = page,
+                totalPages,
+                pageSize
+            });
         }
 
         // GET: api/Projects/5
