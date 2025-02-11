@@ -1,7 +1,8 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Asset } from '../../Models/asset';
 import { DataService } from '../../data.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-asset-detail',
@@ -19,10 +20,18 @@ export class AssetDetailComponent {
       fileSize: 0,
       projectId: 0
   };
+  @Output() editRequested = new EventEmitter<Asset>();
 
-  constructor(private route: ActivatedRoute, private data: DataService, private router: Router) {
-
+  requestEdit() {
+    this.editRequested.emit(this.asset);
   }
+
+  constructor(
+    private route: ActivatedRoute,
+    private data: DataService,
+    private router: Router,
+    private http: HttpClient
+  ) {}
 
   formatFileSize(size: number): string {
     const byteSizes: number[] = [1000000000000000, 1000000000000, 1000000000, 1000000, 1000];

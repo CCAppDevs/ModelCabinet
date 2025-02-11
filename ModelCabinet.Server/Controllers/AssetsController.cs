@@ -15,10 +15,12 @@ namespace ModelCabinet.Server.Controllers
     public class AssetsController : ControllerBase
     {
         private readonly ModelCabinetContext _context;
+        IHttpContextAccessor httpContext;
 
-        public AssetsController(ModelCabinetContext context)
+        public AssetsController(ModelCabinetContext context, IHttpContextAccessor httpContextAccessor)
         {
             _context = context;
+            httpContext = httpContextAccessor;
         }
 
         // GET: api/Assets
@@ -42,11 +44,31 @@ namespace ModelCabinet.Server.Controllers
             return asset;
         }
 
+        // I added these for the cors because i could not make a put request
+        // should we make a master controller that all the common code goes into?????
+        private void AddCorsHeaders()
+        {
+            // should we check the request origin coming in???? 
+            httpContext.HttpContext.Response.Headers.Add("Access-Control-Allow-Origin", "*"); // should I only allow http://localhost:4200 ??????
+            httpContext.HttpContext.Response.Headers.Add("Access-Control-Allow-Methods", "GET, POST, PUT"); // i removed the delete and options as I dont think we will need them???
+            httpContext.HttpContext.Response.Headers.Add("Access-Control-Allow-Headers", "Content-Type, Authorization");
+        }
+
+        [HttpOptions("{id}")]
+        public IActionResult Options()
+        {
+            AddCorsHeaders();
+            return Ok();
+        }
+        /////////
+
         // PUT: api/Assets/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
         public async Task<IActionResult> PutAsset(int id, Asset asset)
         {
+            AddCorsHeaders();
+
             if (id != asset.AssetId)
             {
                 return BadRequest();
@@ -70,7 +92,7 @@ namespace ModelCabinet.Server.Controllers
                 }
             }
 
-            return NoContent();
+            return Ok(asset); // changed this from NoContent so I could see what was being returned - Clarissa
         }
 
         // POST: api/Assets
