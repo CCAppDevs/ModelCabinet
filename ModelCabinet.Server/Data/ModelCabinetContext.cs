@@ -70,6 +70,9 @@ namespace ModelCabinet.Server.Data
 
             // auto load any navigation properties using this pattern
             modelBuilder.Entity<Project>().Navigation(p => p.Assets).AutoInclude();
+
+            // Ensures each slug is unique
+            modelBuilder.Entity<Project>().HasIndex(p => p.Slug).IsUnique();
         }
 
         public DbSet<ModelCabinet.Server.Models.Project> Project { get; set; } = default!;
