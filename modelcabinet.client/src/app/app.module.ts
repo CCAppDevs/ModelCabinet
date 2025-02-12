@@ -2,7 +2,6 @@
 import { provideHttpClient } from "@angular/common/http";
 import { NgModule } from "@angular/core";
 import { BrowserModule } from "@angular/platform-browser";
-import { AboutProjectComponent } from "./about-project/about-project.component";
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import { AssetDetailComponent } from "./asset/asset-detail/asset-detail.component";
@@ -19,6 +18,8 @@ import { ContributorsComponent } from "./components/contributors/contributors.co
 import { ComingSoonComponent } from './coming-soon/coming-soon.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FileSizePipe } from "./Pipes/file-size.pipe";
+import { AboutModelCabinetComponent } from "./About-ModelCabinet/About-ModelCabinet.component";
+import { ViewportComponent } from "./viewport/viewport.component";
 
 @NgModule({
   declarations: [
@@ -30,7 +31,7 @@ import { FileSizePipe } from "./Pipes/file-size.pipe";
     NavBarComponent,
     ChangelogComponent,
     ProfilePageComponent,
-    AboutProjectComponent,
+    AboutModelCabinetComponent,
     ChangelogComponent,
     ProjectEditComponent,
     AssetListComponent,
@@ -38,7 +39,8 @@ import { FileSizePipe } from "./Pipes/file-size.pipe";
     ComingSoonComponent,
     DeveloperCardComponent,
     ContributorsComponent,
-    FileSizePipe
+    FileSizePipe,
+    ViewportComponent
   ],
   imports: [
       BrowserModule,
