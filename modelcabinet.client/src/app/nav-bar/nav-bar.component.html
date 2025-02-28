@@ -1,3 +1,48 @@
+<!--<nav class="navbar navbar-expand-lg">
+  <div class="container">-->
+<!-- Logo and Text -->
+<!--<a class="navbar-brand d-flex align-items-center" routerLink="/">
+  <img src="assets/images/construction.png" alt="ModelCabinet Logo" class="navbar-logo">
+  <span class="navbar-text">ModelCabinet</span>
+</a>-->
+<!-- Hamburger Toggle -->
+<!--<button class="navbar-toggler collapsed"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarNav"
+        aria-controls="navbarNav"
+        aria-expanded="false"
+        aria-label="Toggle navigation">
+  <span class="navbar-toggler-icon"></span>
+</button>-->
+<!-- Links -->
+<!--<div class="collapse navbar-collapse" id="navbarNav">
+  <ul class="navbar-nav ms-auto">-->
+<!--Home Link-->
+<!--<li class="nav-item"><a class="nav-link" routerLink="/" routerLinkActive="active">Home</a></li>-->
+<!--About Project Link-->
+<!--<li class="nav-item"><a class="nav-link" routerLink="/About-ModelCabinet" routerLinkActive="active">About ModelCabinet</a></li>-->
+<!--Projects Link-->
+<!--<li class="nav-item"><a class="nav-link" routerLink="Projects">Projects</a></li>
+<li class="nav-item"><a class="nav-link" routerLink="/changelog">Changelog</a></li>-->
+<!--Help Coming Soon (Disabled Link)-->
+<!--<li class="nav-item"><a class="nav-link" routerLink="Help">Help</a></li>-->
+<!-- Search Bar -->
+<!--<li class="nav-item d-flex align-items-center justify-content-center">
+          <form class="d-flex">
+            <input class="form-control me-2"
+                   type="search"
+                   placeholder="Search"
+                   aria-label="Search" />
+            <button class="btn btn-outline-success" type="submit">Search</button>
+          </form>
+        </li>
+        <li class="nav-item"><a class="nav-link" routerLink="/User"><i class="bi bi-person-circle"></i></a></li>
+      </ul>
+    </div>
+  </div>
+</nav>-->
+
 <nav class="navbar navbar-expand-lg">
   <div class="container">
     <!-- Logo and Text -->
@@ -18,18 +63,18 @@
     <!-- Links -->
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav ms-auto">
-        <!--Home Link-->
+        <!-- Home Link -->
         <li class="nav-item"><a class="nav-link" routerLink="/" routerLinkActive="active">Home</a></li>
-        <!--About Project Link-->
+        <!-- About Project Link -->
         <li class="nav-item"><a class="nav-link" routerLink="/About-ModelCabinet" routerLinkActive="active">About ModelCabinet</a></li>
-        <!--Projects Link-->
+        <!-- Projects Link -->
         <li class="nav-item"><a class="nav-link" routerLink="Projects">Projects</a></li>
         <li class="nav-item"><a class="nav-link" routerLink="/changelog">Changelog</a></li>
-        <!--Help Coming Soon (Disabled Link)-->
+        <!-- Help Coming Soon (Disabled Link) -->
         <li class="nav-item"><a class="nav-link" routerLink="Help">Help</a></li>
         <!-- Search Bar -->
         <li class="nav-item d-flex align-items-center justify-content-center">
-          <form class="d-flex">
+          <form class="d-flex" (submit)="onSearch($event)">
             <input class="form-control me-2"
                    type="search"
                    placeholder="Search"
