@@ -1,6 +1,6 @@
 /* Navbar Background */
 .navbar {
-  background-color: #003366 !important; /* Dark Navy Blue */
+  background-color: #003366 !important; 
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   padding: 10px 20px;
 }
@@ -18,39 +18,38 @@
 
 /* Navbar Text */
 .navbar-text {
-  color: #ffffff !important; /* White */
+  color: #ffffff !important; 
   font-weight: bold;
 }
 
 /* Navbar Links */
 .nav-link {
-  color: #ffffff !important; /* White */
+  color: #ffffff !important; 
   font-weight: 500;
   transition: color 0.2s;
-  display: flex; /* Flexbox for alignment */
-  align-items: center; /* Center vertically */
-  justify-content: center; /* Center horizontally */
-  height: 100%; /* Ensures full height for proper alignment */
+  display: flex; 
+  align-items: center; 
+  justify-content: center; 
+  height: 100%;
 }
 
   .nav-link:hover,
   .nav-link:focus {
-    color: #ffdd57 !important; /* Golden Yellow */
+    color: #ffdd57 !important; 
     text-decoration: underline;
   }
 
   .nav-link.disabled {
-    color: #cccccc !important; /* Light Gray */
+    color: #cccccc !important; 
     pointer-events: none;
     opacity: 0.7;
   }
 
     .nav-link.disabled i {
-      font-size: 30px; /* Icon size */
-      color: #cccccc; /* Light gray for "disabled" */
+      font-size: 30px; 
+      color: #cccccc; 
     }
 
-/* Hamburger Toggler */
 .navbar-toggler:focus {
   outline: none;
 }
@@ -63,53 +62,52 @@
   transform: rotate(90deg);
 }
 
-/* Navbar Search Bar */
+
 .navbar .form-control {
-  width: 250px; /* Adjust width as needed */
-  margin: 0; /* Remove extra margins */
-  height: 40px; /* Ensure the height matches other navbar items */
-  border-radius: 0.25rem; /* Optional: Matches button styling */
-}
+  width: 250px; 
+  margin: 0; 
+  height: 40px; 
+  border-radius: 0.25rem; 
 
 .navbar .d-flex {
-  display: flex; /* Ensure flexbox is applied */
-  align-items: center; /* Vertically center items */
+  display: flex; 
+  align-items: center; 
 }
 
 .navbar .btn-outline-success {
-  border-color: #ffffff; /* Matches navbar styling */
+  border-color: #ffffff; 
   color: #ffffff;
-  height: 40px; /* Ensure button height matches input field */
-  padding: 5px 15px; /* Add some padding for a better look */
+  height: 40px; 
+  padding: 5px 15px; 
   line-height: 1.5;
 }
 
   .navbar .btn-outline-success:hover {
-    background-color: #ffdd57; /* Golden yellow on hover */
+    background-color: #ffdd57; 
     border-color: #ffdd57;
-    color: #003366; /* Dark navy text */
+    color: #003366; 
   }
 
   i.bi-person-circle{
       font-size: xxx-large;
   }
-/* Responsive Adjustments for Collapsed Navbar */
+
 @media (max-width: 991.98px) {
   .navbar-nav {
-    margin-left: 0; /* Ensure no extra margin */
-    text-align: left; /* Align items to the left */
-    display: flex; /* Use flexbox for layout */
-    flex-direction: column; /* Stack items vertically */
-    align-items: flex-start; /* Align items to the left */
-    padding-left: 15px; /* Add some padding for spacing */
+    margin-left: 0; 
+    text-align: left; 
+    display: flex; 
+    flex-direction: column; 
+    align-items: flex-start; 
+    padding-left: 15px; 
   }
 
   .nav-link {
-    justify-content: flex-start; /* Align text and icons to the left */
-    width: 100%; /* Make the link span the full width */
+    justify-content: flex-start; 
+    width: 100%; 
   }
 
   .navbar-collapse {
-    padding-top: 10px; /* Optional: Add padding at the top of the dropdown */
+    padding-top: 10px; 
   }
 }
