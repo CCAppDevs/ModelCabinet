@@ -1,0 +1,186 @@
+<div class="container">
+  <div class="row justify-content-center mt-5">
+    <div class="col-12 col-md-8 col-lg-6">
+      <div class="card shadow">
+        <div class="card-body p-4">
+          <!-- Header -->
+          <h2 class="text-center mb-4">Create your account</h2>
+
+          <!-- Register Form -->
+          <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+            <!-- Display Name Field -->
+            <div class="mb-3">
+              <label for="displayName" class="form-label">Display Name</label>
+              <input id="displayName"
+                     type="text"
+                     formControlName="displayName"
+                     class="form-control"
+                     [ngClass]="{'is-invalid': showError('displayName')}"
+                     placeholder="Your display name"
+                     autocomplete="name">
+              <div class="invalid-feedback" *ngIf="showError('displayName')">
+                <span *ngIf="registerForm.get('displayName')?.errors?.['required']">Display name is required</span>
+                <span *ngIf="registerForm.get('displayName')?.errors?.['minlength']">Display name must be at least 3 characters</span>
+              </div>
+            </div>
+
+            <!-- Email Field -->
+            <div class="mb-3">
+              <label for="email" class="form-label">Email address</label>
+              <input id="email"
+                     type="email"
+                     formControlName="email"
+                     class="form-control"
+                     [ngClass]="{'is-invalid': showError('email')}"
+                     placeholder="name@example.com"
+                     autocomplete="email">
+              <div class="invalid-feedback" *ngIf="showError('email')">
+                <span *ngIf="registerForm.get('email')?.errors?.['required']">Email is required</span>
+                <span *ngIf="registerForm.get('email')?.errors?.['email']">Please enter a valid email</span>
+              </div>
+            </div>
+
+            <!-- Password Field -->
+            <div class="mb-3">
+              <label for="password" class="form-label">Password</label>
+              <div class="input-group">
+                <input id="password"
+                       [type]="showPassword ? 'text' : 'password'"
+                       formControlName="password"
+                       class="form-control"
+                       [ngClass]="{'is-invalid': showError('password')}"
+                       placeholder="Password"
+                       autocomplete="new-password">
+                <button class="btn btn-outline-secondary"
+                        type="button"
+                        (click)="togglePasswordVisibility()"
+                        [attr.aria-label]="showPassword ? 'Hide password' : 'Show password'">
+                  <i [class]="showPassword ? 'bi bi-eye-slash' : 'bi bi-eye'"></i>
+                </button>
+                <div class="invalid-feedback" *ngIf="showError('password')">
+                  <span *ngIf="registerForm.get('password')?.errors?.['required']">Password is required</span>
+                  <span *ngIf="registerForm.get('password')?.errors?.['minlength']">Password must be at least 8 characters</span>
+                  <span *ngIf="registerForm.get('password')?.errors?.['pattern']">
+                    Password must include at least one uppercase letter, one lowercase letter, one number, and one special character
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Confirm Password Field -->
+            <div class="mb-3">
+              <label for="confirmPassword" class="form-label">Confirm Password</label>
+              <div class="input-group">
+                <input id="confirmPassword"
+                       [type]="showConfirmPassword ? 'text' : 'password'"
+                       formControlName="confirmPassword"
+                       class="form-control"
+                       [ngClass]="{'is-invalid': showError('confirmPassword')}"
+                       placeholder="Confirm password"
+                       autocomplete="new-password">
+                <button class="btn btn-outline-secondary"
+                        type="button"
+                        (click)="toggleConfirmPasswordVisibility()"
+                        [attr.aria-label]="showConfirmPassword ? 'Hide password' : 'Show password'">
+                  <i [class]="showConfirmPassword ? 'bi bi-eye-slash' : 'bi bi-eye'"></i>
+                </button>
+                <div class="invalid-feedback" *ngIf="showError('confirmPassword')">
+                  <span *ngIf="registerForm.get('confirmPassword')?.errors?.['required']">Please confirm your password</span>
+                  <span *ngIf="registerForm.get('confirmPassword')?.errors?.['matching']">Passwords do not match</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Optional Fields Accordion -->
+            <div class="accordion mb-3" id="profileDetailsAccordion">
+              <div class="accordion-item">
+                <h2 class="accordion-header">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                          data-bs-target="#profileDetails" aria-expanded="false" aria-controls="profileDetails">
+                    Additional Profile Details (Optional)
+                  </button>
+                </h2>
+                <div id="profileDetails" class="accordion-collapse collapse" data-bs-parent="#profileDetailsAccordion">
+                  <div class="accordion-body">
+                    <!-- Biography Field -->
+                    <div class="mb-3">
+                      <label for="biography" class="form-label">Biography</label>
+                      <textarea id="biography"
+                                formControlName="biography"
+                                class="form-control"
+                                rows="3"
+                                placeholder="Tell us about yourself"></textarea>
+                    </div>
+
+                    <!-- Location Field -->
+                    <div class="mb-3">
+                      <label for="location" class="form-label">Location</label>
+                      <input id="location"
+                             type="text"
+                             formControlName="location"
+                             class="form-control"
+                             placeholder="City, Country">
+                    </div>
+
+                    <!-- Website Field -->
+                    <div class="mb-3">
+                      <label for="website" class="form-label">Website</label>
+                      <input id="website"
+                             type="url"
+                             formControlName="website"
+                             class="form-control"
+                             placeholder="https://yourwebsite.com">
+                      <div class="invalid-feedback" *ngIf="showError('website')">
+                        <span *ngIf="registerForm.get('website')?.errors?.['pattern']">Please enter a valid URL</span>
+                      </div>
+                    </div>
+
+                    <!-- Social Media -->
+                    <div class="row">
+                      <div class="col-md-6 mb-3">
+                        <label for="githubUsername" class="form-label">GitHub Username</label>
+                        <input id="githubUsername"
+                               type="text"
+                               formControlName="githubUsername"
+                               class="form-control"
+                               placeholder="username">
+                      </div>
+                      <div class="col-md-6 mb-3">
+                        <label for="twitterHandle" class="form-label">Twitter Handle</label>
+                        <input id="twitterHandle"
+                               type="text"
+                               formControlName="twitterHandle"
+                               class="form-control"
+                               placeholder="@username">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Error Message -->
+            <div *ngIf="errorMessage" class="alert alert-danger" role="alert">
+              {{ errorMessage }}
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit"
+                    class="btn btn-primary w-100 mb-3 d-flex align-items-center justify-content-center gap-2"
+                    [disabled]="registerForm.invalid || isLoading">
+              <i class="bi bi-person-plus"></i>
+              {{ isLoading ? 'Creating account...' : 'Create account' }}
+            </button>
+
+            <!-- Sign In Link -->
+            <div class="text-center">
+              <a routerLink="/login" class="text-decoration-none">
+                Already have an account? Sign in
+              </a>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
