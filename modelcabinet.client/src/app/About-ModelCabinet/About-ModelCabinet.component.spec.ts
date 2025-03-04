@@ -1,6 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AboutModelCabinetComponent } from './About-ModelCabinet.component';
+import { ContributorsComponent } from '../components/contributors/contributors.component';
+import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 
 describe('AboutModelCabinetComponent', () => {
   let component: AboutModelCabinetComponent;
@@ -8,7 +11,14 @@ describe('AboutModelCabinetComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [AboutModelCabinetComponent]
+      declarations: [
+        AboutModelCabinetComponent,
+        ContributorsComponent
+      ],
+      providers: [
+        provideHttpClient(),
+        provideHttpClientTesting()
+      ]
     })
     .compileComponents();
 
