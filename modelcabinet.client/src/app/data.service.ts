@@ -21,6 +21,7 @@ interface ProjectsResponse {
 })
 
 export class DataService {
+  loading$ = new BehaviorSubject<boolean>(false); // Track loading state
   projects$: BehaviorSubject<Project[]> = new BehaviorSubject<Project[]>([]);
   project$: BehaviorSubject<Project> = new BehaviorSubject<Project>({
     projectId: 0,
@@ -68,29 +69,27 @@ export class DataService {
     });
   }
 
+  getAllProjects(page: number = 1, pageSize?: number): void {
+    const params = new HttpParams().set('page', page.toString());
+    if (pageSize) params.set('pageSize', pageSize.toString());
 
+    // Set loading to true before making the request
+    this.loading$.next(true);
 
-  getAllProjects(page?: number, pageSize?: number): void {
-    // Create HTTP parameters for pagination
-    const params = new HttpParams()
-      .set('page', page?.toString() || '1') // Page number to start on
-      .set('pageSize', pageSize?.toString() || '8'); // Number of projects per page
+    this.http.get<ProjectsResponse>('/api/Projects', { params }).subscribe(
+      (data) => {
+        this.projects$.next(data.projects);
+        this.totalPages$.next(data.totalPages);
+        this.currentPage$.next(data.currentPage);
 
-
-    // Make the HTTP request with pagination parameters
-    this.http.get<ProjectsResponse>('/api/Projects', { params }).subscribe(data => {
-      // Update all the BehaviorSubjects with new data
-      this.projects$.next(data.projects);
-      this.totalPages$.next(data.totalPages);
-      this.currentPage$.next(data.currentPage);
-    });
-  }
-
-  getProjectById(id: number) {
-    this.http.get<Project>(`/api/Projects/${id}`).subscribe(data => {
-      this.project$.next(data);
-      // this.assets$.next(data.asset.&values);
-    });
+        // Stop loading once data is received
+        this.loading$.next(false);
+      },
+      (error) => {
+        console.error('Error fetching projects:', error);
+        this.loading$.next(false);
+      }
+    );
   }
 
   // https://www.bacancytechnology.com/qanda/angular/difference-between-behaviorsubject-and-observable

@@ -1,0 +1,32 @@
+/* Center container */
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 100vh;
+}
+
+/* Spinner animation */
+.spinner {
+  width: 50px;
+  height: 50px;
+  border: 5px solid rgba(0, 0, 0, 0.1);
+  border-top-color: #3498db;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+/* Keyframes rotation animation */
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Optional: Styling for the loading text */
+.loading-text {
+  margin-top: 10px;
+  font-size: 16px;
+  color: #555;
+}
