@@ -1,64 +1,60 @@
-<div class="container">
-  <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4">
-    <div class="col card bg-primary-subtle p-2 text-center" *ngFor="let ProjectItem of (projects$ | async)">
-      <span class="h2 fw-bold text-center">{{ ProjectItem.name }}</span>
-      <span>{{ ProjectItem.shortDescription }}</span>
-      <span><b>Last Modified:</b><br /><span class="h5">{{ ProjectItem.modifiedDate | date:'short' }}</span></span>
-      <span><b>Author:</b><br /><span class="h5">{{ ProjectItem.author }}</span></span>
-      <b class="col">Tags:</b>
-      <div class="row row-cols-auto justify-content-md-center">
-        <app-tag-label class="col" *ngFor="let projectTag of ProjectItem.projectTags" [tagLabel]="projectTag.tag"></app-tag-label>
-      </div>
-      <div class="row mt-3">
-        <div class="col">
-          <a routerLink="{{ ProjectItem.projectId }}" class="card-link btn btn-primary">View Project</a>
-        </div>
-        <!--<div class="col">
-      <a class="btn btn-secondary"><i class="bi bi-share"></i></a>
-    </div>-->
-      </div>
-    </div>
-  </div>
-</div>
-<div class="container text-center py-5">
-  <!-- Page Title -->
-  <h1 class="display-4 fw-bold text-primary">Projects</h1>
-  <p class="lead text-muted">Explore the latest projects and their details below.</p>
-
-  <!-- Project Cards -->
-  <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
-    <div class="col" *ngFor="let ProjectItem of (projects$ | async)">
-      <div class="card h-100 shadow-md p-3 bg-info text-dark">
-
-        <div class="card-body d-flex flex-column">
-          <h5 class="card-title fw-bold">{{ ProjectItem.name }}</h5>
-          <p class="card-text">{{ ProjectItem.shortDescription }}</p>
-          <p class="mb-1"><b>Last Modified:</b> {{ ProjectItem.modifiedDate | date:'short' }}</p>
-          <p class="mb-3"><b>Author:</b> {{ ProjectItem.author }}</p>
-          <div class="mt-auto">
-            <a routerLink="{{ ProjectItem.projectId }}" class="btn btn-primary">View Project</a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Pagination Controls -->
-  <div class="row mt-4">
-    <div class="col text-center">
-      <button class="btn btn-primary me-2" (click)="previousPage()" [disabled]="(currentPage$ | async) === 1">
-        Previous
-      </button>
-      <span class="mx-3">Page {{currentPage$ | async}}</span>
-      <button class="btn btn-primary ms-2" (click)="nextPage()" [disabled]="(currentPage$ | async) === (totalPages$ | async)">
-        Next
-      </button>
-    </div>
-  </div>
+<!-- Show loading spinner while isLoaded is false -->
+<div *ngIf="!isLoaded" class="loading-container">
+    <div class="spinner"></div>
+    <p class="loading-text">Loading projects...</p>
 </div>
 
+<!-- Show main content when isLoaded is true -->
+<div *ngIf="isLoaded">
+    <div class="container">
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4">
+            <div class="col card bg-primary-subtle p-2 text-center"
+                 *ngFor="let ProjectItem of (projects$ | async)">
+                <span class="h2 fw-bold text-center">{{ ProjectItem.name }}</span>
+                <span>{{ ProjectItem.shortDescription }}</span>
+                <span>
+                    <b>Last Modified:</b><br />
+                    <span class="h5">{{ ProjectItem.modifiedDate | date:'short' }}</span>
+                </span>
+                <span>
+                    <b>Author:</b><br />
+                    <span class="h5">{{ ProjectItem.author }}</span>
+                </span>
+                <b class="col">Tags:</b>
+                <div class="row row-cols-auto justify-content-md-center">
+                    <app-tag-label class="col"
+                                   *ngFor="let projectTag of ProjectItem.projectTags"
+                                   [tagLabel]="projectTag.tag">
+                    </app-tag-label>
+                </div>
+                <div class="row mt-3">
+                    <div class="col">
+                        <a routerLink="{{ ProjectItem.projectId }}"
+                           class="card-link btn btn-primary">
+                            View Project
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-<!--<a class="dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">Show Raw Data</a>
-<ul class="dropdown-menu">
-  <li><pre>{{ projects$ | async | json }}</pre></li>
-</ul>-->
+    <!-- Pagination Controls -->
+    <div class="row mt-4">
+        <div class="col text-center">
+            <button class="btn btn-primary me-2"
+                    (click)="previousPage()"
+                    [disabled]="(currentPage$ | async) === 1">
+                Previous
+            </button>
+            <span class="mx-3">
+                Page {{currentPage$ | async}}
+            </span>
+            <button class="btn btn-primary ms-2"
+                    (click)="nextPage()"
+                    [disabled]="(currentPage$ | async) === (totalPages$ | async)">
+                Next
+            </button>
+        </div>
+    </div>
+</div>

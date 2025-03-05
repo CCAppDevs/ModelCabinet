@@ -68,22 +68,17 @@ export class DataService {
     });
   }
 
+  getAllProjects(page: number = 1, pageSize?: number): void {
+    const params = new HttpParams().set('page', page.toString());
+    if (pageSize) params.set('pageSize', pageSize.toString());
 
-
-  getAllProjects(page?: number, pageSize?: number): void {
-    // Create HTTP parameters for pagination
-    const params = new HttpParams()
-      .set('page', page?.toString() || '1') // Page number to start on
-      .set('pageSize', pageSize?.toString() || '8'); // Number of projects per page
-
-
-    // Make the HTTP request with pagination parameters
-    this.http.get<ProjectsResponse>('/api/Projects', { params }).subscribe(data => {
-      // Update all the BehaviorSubjects with new data
-      this.projects$.next(data.projects);
-      this.totalPages$.next(data.totalPages);
-      this.currentPage$.next(data.currentPage);
-    });
+    this.http.get<ProjectsResponse>('/api/Projects', { params }).subscribe(
+      (data) => {
+        this.projects$.next(data.projects);
+        this.currentPage$.next(data.currentPage);
+        this.totalPages$.next(data.totalPages);
+      }
+    );
   }
 
   getProjectById(id: number) {
@@ -101,12 +96,12 @@ export class DataService {
 
   // https://www.learnrxjs.io/learn-rxjs/operators/utility/do
   // not modifying data so it'll be an exact copy of the original
+
   getProjectInfoById(id: number): Observable<Project> {
     return this.http.get<Project>(`/api/Projects/${id}`).pipe(
       tap(data => this.project$.next(data))
     );
   }
-
   updateProjectById(id: number, project: Project) {
     this.http.put<Project>(`/api/Projects/${id}`, project).subscribe(data => {
       this.project$.next(data);

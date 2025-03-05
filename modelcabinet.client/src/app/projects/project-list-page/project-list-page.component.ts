@@ -11,9 +11,9 @@ import { Project } from '../../Models/project';
 })
 export class ProjectListPageComponent implements OnInit {
   projects$: BehaviorSubject<Project[]>;
-  currentPage$: BehaviorSubject<number>;    // Current page number
-  totalPages$: BehaviorSubject<number>;     // Total available pages
-
+  currentPage$: BehaviorSubject<number>;
+  totalPages$: BehaviorSubject<number>;
+  isLoaded: boolean = false;
 
   constructor(private data: DataService) {
     this.projects$ = this.data.projects$;
@@ -25,9 +25,15 @@ export class ProjectListPageComponent implements OnInit {
     this.loadPage(1);
   }
 
-  loadPage(page: number) {
+  loadPage(page: number): void {
     if (page < 1) return;
+
     this.data.getAllProjects(page);
+    this.projects$.subscribe(data => {
+      if (data.length > 0) {
+        this.isLoaded = true;
+      }
+    })
   }
 
   nextPage() {
