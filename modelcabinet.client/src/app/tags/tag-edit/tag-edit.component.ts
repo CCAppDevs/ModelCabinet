@@ -9,7 +9,7 @@ import { FormControl, FormGroup } from '@angular/forms';
   styleUrl: './tag-edit.component.css'
 })
 export class TagEditComponent implements OnInit{
-  // If tags are not specified when component loads, it will auto populate with all the tags
+  
   @Input() alltags: Tag[] = [];
   isEditing = false;
 
