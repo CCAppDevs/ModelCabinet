@@ -27,6 +27,7 @@ describe('ProjectPageComponent', () => {
     assets: [],
     shortDescription: 'Short description',
     slug: 'test-project',
+    projectTags: []
   };
 
   let mockDataService;
@@ -57,7 +58,7 @@ describe('ProjectPageComponent', () => {
 
     fixture = TestBed.createComponent(ProjectPageComponent);
     component = fixture.componentInstance;
-    component.project = new BehaviorSubject<Project>(mockProject);
+    component.project$ = new BehaviorSubject<Project>(mockProject);
     fixture.detectChanges();
   });
 

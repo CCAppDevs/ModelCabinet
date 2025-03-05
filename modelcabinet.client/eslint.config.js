@@ -31,6 +31,7 @@ module.exports = tseslint.config(
         },
       ],
       "@typescript-eslint/no-inferrable-types": "warn",
+      "@typescript-eslint/no-unused-vars":"warn"
     },
   },
   {

@@ -3,7 +3,7 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, Inpu
 import { Asset } from '../Models/asset';
 import { StlModelViewerComponent } from 'angular-stl-model-viewer';
 
-// @ts-expect-error
+// @ts-expect-error Using JS Module in Typescript
 import * as THREE from 'three';
 
 @Component({

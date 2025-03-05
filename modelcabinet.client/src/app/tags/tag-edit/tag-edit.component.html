@@ -11,10 +11,10 @@
   <h2>{{isEditing ? 'Edit a' : 'Create a new'}} Tag</h2>
   <div>
     <form [formGroup]="tagForm" (ngSubmit)="onSubmit()">
-      <label class="fw-bold">Tag Name</label>
-      <input formControlName="tagName" name="tagName" class="form-control" />
-      <label class="fw-bold">Tag Color</label>
-      <input formControlName="color" name="color" class="form-control" />
+      <label class="fw-bold" for="tagName">Tag Name</label>
+      <input formControlName="tagName" id="tagName" name="tagName" class="form-control" />
+      <label class="fw-bold" for="tagColor">Tag Color</label>
+      <input formControlName="color" id="tagColor" name="color" class="form-control" />
       <button type="submit" class="btn btn-success">{{isEditing ? 'Update ' : 'Create '}} Tag</button>
     </form>
   </div>
