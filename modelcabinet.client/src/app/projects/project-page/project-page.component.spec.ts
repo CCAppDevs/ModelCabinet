@@ -73,7 +73,7 @@ describe('ProjectPageComponent', () => {
       declarations: [
         ProjectPageComponent,
         MockViewportComponent, // Declare mock component
-        MockAssetDetailComponent // ✅ Mocked asset-detail component
+        MockAssetDetailComponent // Mocked asset-detail component
       ],
       providers: [
         provideHttpClient(),
