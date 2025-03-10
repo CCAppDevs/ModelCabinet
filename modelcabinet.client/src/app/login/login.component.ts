@@ -68,7 +68,7 @@ export class LoginComponent implements OnDestroy, AfterViewInit {
         .subscribe({
           // On success, navigate to home page
           next: () => {
-            this.router.navigate(['/']);
+            this.router.navigate(['']);
           },
           // Error handling
           error: (error) => {
