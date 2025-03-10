@@ -20,22 +20,20 @@ import { nonAuthGuard } from './guards/non-auth.guard';
 
 const routes: Routes = [
   { path: '', pathMatch: "full", component: LandingPageComponent },
-  { path: 'LandingPage', redirectTo: '' },
-  { path: 'Projects', component: ProjectListPageComponent, canActivate: [authGuard] },
-  { path: 'Projects/:id', component: ProjectPageComponent, canActivate: [authGuard] },
-  { path: 'About-ModelCabinet', component: AboutModelCabinetComponent },
+  { path: 'landingPage', redirectTo: '' },
+  { path: 'projects', component: ProjectListPageComponent, canActivate: [authGuard] },
+  { path: 'projects/:id', component: ProjectPageComponent, canActivate: [authGuard] },
+  { path: 'about-modelcabinet', component: AboutModelCabinetComponent },
   { path: 'changelog', component: ChangelogComponent },
   { path: `assets`, component: AssetListComponent, canActivate: [authGuard] },
-  { path: 'Help', component: HelpProjectComponent },
-  { path: 'Assets', component: AssetListComponent, canActivate: [authGuard] },
-  { path: 'Assets/:id', component: AssetDetailComponent, canActivate: [authGuard] },
-  { path: 'User', component: ProfilePageComponent, canActivate: [authGuard] },
+  { path: 'help', component: HelpProjectComponent },
+  { path: 'assets', component: AssetListComponent, canActivate: [authGuard] },
+  { path: 'assets/:id', component: AssetDetailComponent, canActivate: [authGuard] },
+  { path: 'user', component: ProfilePageComponent, canActivate: [authGuard] },
   { path: 'coming-soon', component: ComingSoonComponent },
-  { path: 'Edit-Tags', component: TagEditComponent, canActivate: [authGuard] },
+  { path: 'edit-Tags', component: TagEditComponent, canActivate: [authGuard] },
   { path: 'login', component: LoginComponent, canActivate: [nonAuthGuard] },
-  { path: 'Login', component: LoginComponent, canActivate: [nonAuthGuard] }, // duplicated for case insensitivity
   { path: 'register', component: RegisterComponent, canActivate: [nonAuthGuard] },
-  { path: 'Register', component: RegisterComponent, canActivate: [nonAuthGuard] }, // duplicated for case insensitivity
   { path: '**', component: PageNotFoundComponent }
 ];
 
