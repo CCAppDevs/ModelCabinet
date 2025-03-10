@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
-import { Project } from '../../Models/project';
+import { emptyProject, Project } from '../../Models/project';
 import { DataService } from '../../data.service';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 
@@ -27,19 +27,7 @@ export class ProjectEditComponent implements OnInit {
   isEditing = false;
 
   // First, try to grab an existing project
-  project: Project = {
-    projectId: -1,
-    name: '',
-    creationDate: new Date,
-    modifiedDate: new Date,
-    description: '',
-    author: '',
-    version: '',
-    assets: [],
-    shortDescription: '',
-    slug: '',
-    projectTags:[]
-  };
+  project: Project = emptyProject;
 
   constructor(
     private route: ActivatedRoute,
