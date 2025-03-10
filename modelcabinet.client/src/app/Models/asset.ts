@@ -18,3 +18,14 @@ export interface AssetTag {
   asset: Asset,
   tag: Tag
 }
+
+export const emptyAsset: Asset = {
+  assetId: 0,
+  name: "",
+  path: "",
+  dateCreation: new Date("2025-03-10"),
+  dateUpdated: new Date("2025-03-10"),
+  fileSize: 0,
+  projectId: 0,
+  assetTags: []
+}

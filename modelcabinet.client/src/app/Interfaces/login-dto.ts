@@ -3,3 +3,9 @@ export interface LoginDto {
   password: string;
   rememberMe: boolean;
 }
+
+export const emptyLoginDto : LoginDto = {
+  email: "",
+  password: "",
+  rememberMe: false
+}

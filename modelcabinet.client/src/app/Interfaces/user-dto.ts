@@ -17,3 +17,15 @@ export interface UserDto {
   projectUpdatesEnabled: boolean;
   newMessageNotificationsEnabled: boolean;
 }
+
+export const emptyUserDto : UserDto = {
+  id: "",
+  email: "",
+  displayName: "",
+  dateJoined: new Date("2025-03-10"),
+  lastActive: new Date("2025-03-10"),
+  isProfilePublic: false,
+  emailNotificationsEnabled: false,
+  projectUpdatesEnabled: false,
+  newMessageNotificationsEnabled: false
+}
