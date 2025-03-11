@@ -1,9 +1,9 @@
 import { HttpClient, HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { BehaviorSubject, Observable, tap } from "rxjs";
-import { Project } from "./Models/project";
-import { Asset } from "./Models/asset";
-import { Tag } from "./Models/tag";
+import { emptyProject, Project } from "./Models/project";
+import { Asset, emptyAsset } from "./Models/asset";
+import { emptyTag, Tag } from "./Models/tag";
 //import { Tag } from "./Models/tag";
 
 
@@ -22,38 +22,13 @@ interface ProjectsResponse {
 
 export class DataService {
   projects$: BehaviorSubject<Project[]> = new BehaviorSubject<Project[]>([]);
-  project$: BehaviorSubject<Project> = new BehaviorSubject<Project>({
-    projectId: 0,
-    name: '',
-    creationDate: new Date,
-    modifiedDate: new Date,
-    description: '',
-    author: '',
-    version: '',
-    assets: [],
-    shortDescription: '',
-    slug: '',
-    projectTags: []
-  });
+  project$: BehaviorSubject<Project> = new BehaviorSubject<Project>(emptyProject);
 
   assets$: BehaviorSubject<Asset[]> = new BehaviorSubject<Asset[]>([]);
-  asset$: BehaviorSubject<Asset> = new BehaviorSubject<Asset>({
-    assetId: 0,
-    name: '',
-    path: '',
-    dateCreation: new Date,
-    dateUpdated: new Date,
-    fileSize: 0,
-    projectId: 0,
-    assetTags: []
-  });
+  asset$: BehaviorSubject<Asset> = new BehaviorSubject<Asset>(emptyAsset);
 
   tags$: BehaviorSubject<Tag[]> = new BehaviorSubject<Tag[]>([]);
-  tag$: BehaviorSubject<Tag> = new BehaviorSubject<Tag>({
-    tagId: -1,
-    tagName: 'BOGUS DATA',
-    color: 'bcb502'
-  });
+  tag$: BehaviorSubject<Tag> = new BehaviorSubject<Tag>(emptyTag);
 
   // Pagination state management
   totalPages$: BehaviorSubject<number> = new BehaviorSubject<number>(1);

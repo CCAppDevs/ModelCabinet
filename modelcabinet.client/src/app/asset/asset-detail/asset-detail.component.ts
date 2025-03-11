@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Asset } from '../../Models/asset';
+import { Asset, emptyAsset } from '../../Models/asset';
 import { DataService } from '../../data.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
@@ -11,16 +11,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class AssetDetailComponent {
 
-  @Input() asset: Asset = {
-      assetId: 0,
-      name: '',
-      path: '',
-      dateCreation: new Date(),
-      dateUpdated: new Date(),
-      fileSize: 0,
-      projectId: 0,
-      assetTags: []
-  };
+  @Input() asset: Asset = emptyAsset;
   @Output() editRequested = new EventEmitter<Asset>();
 
   requestEdit() {

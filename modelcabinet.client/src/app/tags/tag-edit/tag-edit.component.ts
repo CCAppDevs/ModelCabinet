@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Tag } from '../../Models/tag';
+import { emptyTag, Tag } from '../../Models/tag';
 import { DataService } from '../../data.service';
 import { FormControl, FormGroup } from '@angular/forms';
 
@@ -13,11 +13,7 @@ export class TagEditComponent implements OnInit{
   @Input() alltags: Tag[] = [];
   isEditing = false;
 
-  selectedTag: Tag = {
-    tagId: -1,
-    tagName: "BOGUS DATA",
-    color: "000000"
-  }
+  selectedTag: Tag = emptyTag
 
   tagForm: FormGroup = new FormGroup({
     tagName: new FormControl(this.selectedTag.tagName),
@@ -62,11 +58,7 @@ export class TagEditComponent implements OnInit{
   }
 
   clearEdit() {
-    this.selectedTag = {
-      tagId: -1,
-      tagName: "BOGUS DATA",
-      color: "000000"
-    };
+    this.selectedTag = emptyTag;
     this.isEditing = false;
   }
 }

@@ -23,3 +23,17 @@ export interface ProjectTag {
   project: Project,
   tag: Tag
 }
+
+export const emptyProject: Project = {
+  projectId: 0,
+  name: "",
+  creationDate: new Date("2025-03-10"),
+  modifiedDate: new Date("2025-03-10"),
+  description: "",
+  author: "",
+  version: "0",
+  assets: [],
+  shortDescription: "",
+  slug: "empty-project",
+  projectTags: []
+}
