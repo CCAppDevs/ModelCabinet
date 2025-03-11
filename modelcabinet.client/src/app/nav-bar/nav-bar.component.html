@@ -21,12 +21,12 @@
       
         <li class="nav-item"><a class="nav-link" routerLink="/" routerLinkActive="active">Home</a></li>
 
-        <li class="nav-item"><a class="nav-link" routerLink="/About-ModelCabinet" routerLinkActive="active">About ModelCabinet</a></li>
+        <li class="nav-item"><a class="nav-link" routerLink="/about-modelcabinet" routerLinkActive="active">About ModelCabinet</a></li>
     
-        <li class="nav-item"><a class="nav-link" routerLink="Projects">Projects</a></li>
+        <li class="nav-item"><a class="nav-link" routerLink="projects">Projects</a></li>
         <li class="nav-item"><a class="nav-link" routerLink="/changelog">Changelog</a></li>
    
-        <li class="nav-item"><a class="nav-link" routerLink="Help">Help</a></li>
+        <li class="nav-item"><a class="nav-link" routerLink="help">Help</a></li>
     
         <li class="nav-item d-flex align-items-center justify-content-center">
           <form class="d-flex" (submit)="onSearch($event)">
@@ -45,7 +45,7 @@
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
             <!-- Conditionally render links based on user login state -->
             <li *ngIf="isAuthenticated()">
-              <a class="dropdown-item" routerLink="/User">User</a>
+              <a class="dropdown-item" routerLink="/user">User</a>
             </li>
             <li *ngIf="isAuthenticated()">
               <!-- Button to trigger the logout confirmation modal -->
