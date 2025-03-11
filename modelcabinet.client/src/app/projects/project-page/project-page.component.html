@@ -1,46 +1,56 @@
 @let project = project$ | async;
 
-<div class="container" *ngIf="project">
+<div class="container mt-4" *ngIf="project">
   <div class="row">
-    <div class="col-12 col-lg-6">
+    <!-- 3D Model Viewer -->
+    <div class="col-12 col-md-6 mb-3">
       <app-viewport #viewport [stlModels]="[project!.assets[0].path]"></app-viewport>
     </div>
-    <div class="col-12 col-lg-6">
+
+    <!-- Project Information -->
+    <div class="col-12 col-md-6">
       <h1 class="text-center">{{ project!.name }}</h1>
-      <span>
-        <b>Description:</b>
-        <br />
-        <span class="h5">{{ project!.shortDescription }}</span>
-      </span>
-      <div class="row text-center">
-        <div class="col">
-          <span><b>Description:</b><br /><span class="h5">{{ project!.shortDescription }}</span></span>
+      <p class="text-muted text-center"><b>Description:</b></p>
+      <p class="h5 text-center">{{ project!.shortDescription }}</p>
+
+      <!-- Author and Dates -->
+      <div class="row text-center mt-3">
+        <div class="col-6">
+          <p><b>Author:</b> <br /><span class="h5">{{ project!.author }}</span></p>
         </div>
-        <div class="col">
-          <span><b>Author:</b><br /><span class="h5">{{ project!.author }}</span></span>
-        </div>
-      </div>
-      <div class="row text-center">
-        <div class="col">
-          <span><b>Creation Date:</b><br /><span class="h5">{{ project!.creationDate | date:'short' }}</span></span>
-        </div>
-        <div class="col">
-          <span><b>Modified Date:</b><br /><span class="h5">{{ project!.modifiedDate | date:'short' }}</span></span>
+        <div class="col-6">
+          <p><b>Creation Date:</b> <br /><span class="h5">{{ project!.creationDate | date:'short' }}</span></p>
         </div>
       </div>
+      <div class="row text-center">
+        <div class="col-6">
+          <p><b>Modified Date:</b> <br /><span class="h5">{{ project!.modifiedDate | date:'short' }}</span></p>
+        </div>
+      </div>
+
+      <!-- Asset Controls -->
       <div class="viewport-controls">
         <ul class="list-group">
-          <li class="list-group-item" *ngFor="let asset of project!.assets"><button class="btn btn-sm btn-info" (click)="loadAsset(asset)">Load</button> {{ asset.name }}</li>
+          <li class="list-group-item" *ngFor="let asset of project!.assets">
+            <button class="btn btn-sm btn-info w-100" (click)="loadAsset(asset)">Load</button>
+            <span class="d-block mt-2">{{ asset.name }}</span>
+          </li>
         </ul>
       </div>
-      <span class="fw-bold col">Tags:</span>
-      <div class="row row-cols-auto justify-content-md-center">
-        <app-tag-label class="col" *ngFor="let projectTag of project!.projectTags" [tagLabel]="projectTag.tag"></app-tag-label>
+
+      <!-- Tags -->
+      <div class="mt-3">
+        <span class="fw-bold">Tags:</span>
+        <div class="d-flex flex-wrap justify-content-center mt-2">
+          <app-tag-label class="m-1" *ngFor="let projectTag of project!.projectTags" [tagLabel]="projectTag.tag"></app-tag-label>
+        </div>
       </div>
     </div>
-    <span class="col-12 text-center h5"><b>Assets Included In Project:</b></span>
+
+    <!-- Assets Included in Project -->
+    <div class="col-12 text-center h5 mt-4"><b>Assets Included In Project:</b></div>
     <div class="col-12">
-      <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4">
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4">
         <div class="col" *ngFor="let asset of project!.assets">
           <app-asset-detail [asset]="asset" (editRequested)="setAsset($event)"></app-asset-detail>
         </div>
@@ -51,7 +61,7 @@
 
 <!-- Modal for Editing Asset -->
 <div class="modal fade" id="editAssetModal" tabindex="-1" aria-labelledby="editAssetModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
+  <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="editAssetModalLabel">Edit Asset</h5>
@@ -72,9 +82,6 @@
             <input type="number" class="form-control" id="assetSize" [(ngModel)]="selectedAsset.fileSize" name="assetSize" />
           </div>
         </form>
-        <!--Tagging Edits-->
-        <form class="form-floating">
-        </form>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -84,8 +91,7 @@
   </div>
 </div>
 
-
-<!--Raw Data viewer, for debugging purposes-->
+<!-- Raw Data Viewer for Debugging -->
 <a class="dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">Show Raw Data</a>
 <ul class="dropdown-menu">
   <li><pre>{{ project | json }}</pre></li>
