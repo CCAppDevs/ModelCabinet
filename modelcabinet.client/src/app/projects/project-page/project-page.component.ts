@@ -54,7 +54,7 @@ export class ProjectPageComponent implements OnInit {
   getProjectData(): void {
     this.route.paramMap.subscribe(data => {
       this.projid = +data.get('id')!;
-      this.data.getProjectInfoById(this.projid);
+      this.data.getProjectById(this.projid);
       console.log(this.project$, this.projid);
     });
   }
