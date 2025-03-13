@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AboutModelCabinetComponent } from './About-ModelCabinet.component';
+import { AboutModelCabinetComponent } from './about-modelcabinet.component';
 import { ContributorsComponent } from '../components/contributors/contributors.component';
 import { provideHttpClient } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';

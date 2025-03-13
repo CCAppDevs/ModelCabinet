@@ -12,3 +12,10 @@ export interface RegisterDto {
   preferredLanguage?: string;
   timeZone?: string;
 }
+
+export const emptyRegisterDto : RegisterDto = {
+  email: "",
+  password: "",
+  confirmPassword: "",
+  displayName: ""
+}

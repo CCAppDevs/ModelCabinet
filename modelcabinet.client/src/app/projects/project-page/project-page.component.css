@@ -1,4 +1,23 @@
-a{
-  display: inline;
-  text-decoration: none;
+
+/* Stack elements better on small screens */
+@media screen and (max-width: 768px) {
+  .viewport-controls .list-group-item {
+    text-align: center;
+  }
+
+  .btn {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+}
+
+/* Ensure better spacing */
+.h5 {
+  font-size: 1rem;
+  color: #444;
+}
+
+/* Make modal form fields readable */
+.modal-content {
+  padding: 15px;
 }

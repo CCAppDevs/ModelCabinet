@@ -22,12 +22,20 @@
           <p class="card-text"><strong>Message:</strong> {{ commit.commit.message }}</p>
         </div>
         <div class="card-footer">
+          <!-- Updated link to point to the correct master branch -->
           <a href="https://github.com/CCAppDevs/ModelCabinet/commit/{{commit.sha}}" target="_blank"
-            class="btn btn-primary btn-sm">
+             class="btn btn-primary btn-sm">
             View Commit
           </a>
         </div>
       </div>
     </div>
+  </div>
+
+  <!-- Updated Changelog link at the bottom -->
+  <div class="text-center mt-4">
+    <a href="https://github.com/CCAppDevs/ModelCabinet/blob/master/CHANGELOG.md" target="_blank" class="btn btn-info">
+      View Full Changelog
+    </a>
   </div>
 </div>

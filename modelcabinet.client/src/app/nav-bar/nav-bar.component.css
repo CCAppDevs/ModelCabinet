@@ -89,9 +89,17 @@
     color: #003366; 
   }
 
-  i.bi-person-circle{
-      font-size: xxx-large;
-  }
+.navbar-toggler {
+  background-color: #ffffff82;
+}
+
+.nav-link.dropdown-toggle{
+    font-size:xx-large;
+}
+
+i.bi-person-circle {
+  font-size: xxx-large;
+}
 
 @media (max-width: 991.98px) {
   .navbar-nav {

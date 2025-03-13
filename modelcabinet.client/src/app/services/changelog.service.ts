@@ -19,7 +19,8 @@ export interface Commit {
   providedIn: 'root'
 })
 export class ChangelogService {
-  private apiUrl = 'https://api.github.com/repos/CCAppDevs/ModelCabinet/commits?sha=development';
+  // Updated to fetch commits from the master branch
+  private apiUrl = 'https://api.github.com/repos/CCAppDevs/ModelCabinet/commits?sha=master';
 
   constructor(private http: HttpClient) { }
 
@@ -27,4 +28,6 @@ export class ChangelogService {
     return this.http.get<Commit[]>(this.apiUrl);
   }
 }
+
+
 
