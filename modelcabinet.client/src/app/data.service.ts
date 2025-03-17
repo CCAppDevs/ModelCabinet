@@ -4,6 +4,7 @@ import { BehaviorSubject, Observable, tap } from "rxjs";
 import { emptyProject, Project } from "./Models/project";
 import { Asset, emptyAsset } from "./Models/asset";
 import { emptyTag, Tag } from "./Models/tag";
+import { createAssetWithTagNames, processAssetsWithTagNames } from "./asset-utils";
 //import { Tag } from "./Models/tag";
 
 
@@ -57,9 +58,19 @@ export class DataService {
   }
 
   getProjectById(id: number) {
-    this.http.get<Project>(`/api/Projects/${id}`).subscribe(data => {
-      this.project$.next(data);
-      // this.assets$.next(data.asset.&values);
+    this.http.get<Project>(`/api/Projects/${id}`).subscribe({
+      next: (data) => {
+        // Process assets in the project
+        if (data.assets && data.assets.length > 0) {
+          data.assets = processAssetsWithTagNames(data.assets);
+        }
+        console.log("Project loaded successfully:", data);
+        this.project$.next(data);
+      },
+      error: (err) => {
+        console.error("Error loading project:", err);
+        // Don't update the BehaviorSubject with invalid data
+      }
     });
   }
 
@@ -93,31 +104,40 @@ export class DataService {
 
   createAsset(asset: Asset) {
     this.http.post<Asset>(`/api/Assets`, asset).subscribe(data => {
-      this.asset$.next(data);
+      const processedAsset = createAssetWithTagNames(data);
+      this.asset$.next(processedAsset);
     });
   }
 
   getAllAssets() {
     this.http.get<Asset[]>(`/api/Assets`).subscribe(data => {
-      this.assets$.next(data);
+      // Process assets to add the assetTagNames property
+      const processedAssets = processAssetsWithTagNames(data);
+      this.assets$.next(processedAssets);
     });
   }
 
   getAssetsById(id: number) {
     this.http.get<Asset>(`/api/Assets/${id}`).subscribe(data => {
-      this.asset$.next(data);
-    })
+      // Add the assetTagNames property
+      const processedAsset = createAssetWithTagNames(data);
+      this.asset$.next(processedAsset);
+    });
   }
 
-  updateAssetById(id:number, asset: Asset) {
+  updateAssetById(id: number, asset: Asset) {
     this.http.put<Asset>(`/api/Assets/${id}`, asset).subscribe(data => {
-      this.asset$.next(data);
+      const processedAsset = createAssetWithTagNames(data);
+      this.asset$.next(processedAsset);
     });
   }
 
   deleteAssetById(id: number) {
     this.http.delete<Asset>(`/api/Assets/${id}`).subscribe(data => {
-      this.asset$.next(data);
+      if (data) {
+        const processedAsset = createAssetWithTagNames(data);
+        this.asset$.next(processedAsset);
+      }
     });
   }
 
@@ -156,5 +176,18 @@ export class DataService {
     this.http.delete<Tag>(`/api/Tags/${id}`).subscribe(data => {
       return data;
     });
+  }
+
+  getAllUniqueTags(): string[] {
+    const assets = this.assets$.value;
+    const allTags = new Set<string>();
+
+    assets.forEach(asset => {
+      if (asset.assetTagNames) {
+        asset.assetTagNames.forEach(tag => allTags.add(tag));
+      }
+    });
+
+    return Array.from(allTags).sort();
   }
 }

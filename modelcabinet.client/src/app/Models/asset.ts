@@ -9,6 +9,9 @@ export interface Asset {
   fileSize: number, 
   projectId: number,
   assetTags: AssetTag[]
+
+  // Read-only property
+  readonly assetTagNames: string[]
 }
 
 // Used to Match the structure in the backend
@@ -27,5 +30,6 @@ export const emptyAsset: Asset = {
   dateUpdated: new Date("2025-03-10"),
   fileSize: 0,
   projectId: 0,
-  assetTags: []
+  assetTags: [],
+  get assetTagNames() { return []; }
 }
