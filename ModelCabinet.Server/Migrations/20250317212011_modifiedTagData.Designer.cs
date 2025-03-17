@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ModelCabinet.Server.Data;
 
@@ -11,9 +12,11 @@ using ModelCabinet.Server.Data;
 namespace ModelCabinet.Server.Migrations
 {
     [DbContext(typeof(ModelCabinetContext))]
-    partial class ModelCabinetContextModelSnapshot : ModelSnapshot
+    [Migration("20250317212011_modifiedTagData")]
+    partial class modifiedTagData
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

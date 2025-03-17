@@ -1,37 +1,46 @@
-@let project = project$ | async;
+<!-- Loading indicator -->
+<div class="container mt-4" *ngIf="isLoading">
+  <div class="d-flex justify-content-center">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+  <p class="text-center mt-2">Loading project data...</p>
+</div>
 
-<div class="container mt-4" *ngIf="project">
+<!-- Project display -->
+<div class="container mt-4" *ngIf="!isLoading && project$.value && project$.value.projectId">
   <div class="row">
     <!-- 3D Model Viewer -->
     <div class="col-12 col-md-6 mb-3">
-      <app-viewport #viewport [stlModels]="[project!.assets[0].path]"></app-viewport>
+      <app-viewport #viewport [stlModels]="project$.value.assets && project$.value.assets.length > 0 ? [project$.value.assets[0].path] : []"></app-viewport>
     </div>
 
     <!-- Project Information -->
     <div class="col-12 col-md-6">
-      <h1 class="text-center">{{ project!.name }}</h1>
+      <h1 class="text-center">{{ project$.value.name }}</h1>
       <p class="text-muted text-center"><b>Description:</b></p>
-      <p class="h5 text-center">{{ project!.shortDescription }}</p>
+      <p class="h5 text-center">{{ project$.value.shortDescription }}</p>
 
       <!-- Author and Dates -->
       <div class="row text-center mt-3">
         <div class="col-6">
-          <p><b>Author:</b> <br /><span class="h5">{{ project!.author }}</span></p>
+          <p><b>Author:</b> <br /><span class="h5">{{ project$.value.author }}</span></p>
         </div>
         <div class="col-6">
-          <p><b>Creation Date:</b> <br /><span class="h5">{{ project!.creationDate | date:'short' }}</span></p>
+          <p><b>Creation Date:</b> <br /><span class="h5">{{ project$.value.creationDate | date:'short' }}</span></p>
         </div>
       </div>
       <div class="row text-center">
         <div class="col-6">
-          <p><b>Modified Date:</b> <br /><span class="h5">{{ project!.modifiedDate | date:'short' }}</span></p>
+          <p><b>Modified Date:</b> <br /><span class="h5">{{ project$.value.modifiedDate | date:'short' }}</span></p>
         </div>
       </div>
 
       <!-- Asset Controls -->
-      <div class="viewport-controls">
+      <div class="viewport-controls" *ngIf="project$.value.assets && project$.value.assets.length > 0">
         <ul class="list-group">
-          <li class="list-group-item" *ngFor="let asset of project!.assets">
+          <li class="list-group-item" *ngFor="let asset of project$.value.assets">
             <button class="btn btn-sm btn-info w-100" (click)="loadAsset(asset)">Load</button>
             <span class="d-block mt-2">{{ asset.name }}</span>
           </li>
@@ -39,54 +48,63 @@
       </div>
 
       <!-- Tags -->
-      <div class="mt-3">
+      <div class="mt-3" *ngIf="project$.value.projectTags && project$.value.projectTags.length > 0">
         <span class="fw-bold">Tags:</span>
         <div class="d-flex flex-wrap justify-content-center mt-2">
-          <app-tag-label class="m-1" *ngFor="let projectTag of project!.projectTags" [tagLabel]="projectTag.tag"></app-tag-label>
+          <app-tag-label class="m-1" *ngFor="let projectTag of project$.value.projectTags" [tagLabel]="projectTag.tag"></app-tag-label>
+        </div>
+      </div>
+    </div>
+
+    <!-- Filter by Tag -->
+    <div class="col-12 mt-4 mb-2" *ngIf="uniqueTagNames.length > 0">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Filter Assets by Tag</h5>
+          <div class="row">
+            <div class="col-9">
+              <select class="form-select" [(ngModel)]="selectedTagName">
+                <option value="">All Tags</option>
+                <option *ngFor="let tagName of uniqueTagNames" [value]="tagName">{{ tagName }}</option>
+              </select>
+            </div>
+            <div class="col-3">
+              <button class="btn btn-secondary" (click)="clearTagFilter()">Clear</button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
 
     <!-- Assets Included in Project -->
-    <div class="col-12 text-center h5 mt-4"><b>Assets Included In Project:</b></div>
-    <div class="col-12">
+    <div class="col-12 text-center h5 mt-4" *ngIf="project$.value.assets && project$.value.assets.length > 0"><b>Assets Included In Project:</b></div>
+    <div class="col-12" *ngIf="project$.value.assets && project$.value.assets.length > 0">
       <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4">
-        <div class="col" *ngFor="let asset of project!.assets">
+        <div class="col" *ngFor="let asset of filteredAssets">
           <app-asset-detail [asset]="asset" (editRequested)="setAsset($event)"></app-asset-detail>
         </div>
+      </div>
+      <!-- Add a message when no assets match the filter -->
+      <div *ngIf="filteredAssets.length === 0" class="alert alert-info text-center mt-3">
+        No assets match the selected tag filter.
+      </div>
+    </div>
+
+    <!-- No assets message -->
+    <div class="col-12" *ngIf="!project$.value.assets || project$.value.assets.length === 0">
+      <div class="alert alert-info text-center mt-3">
+        This project has no assets.
       </div>
     </div>
   </div>
 </div>
 
-<!-- Modal for Editing Asset -->
-<div class="modal fade" id="editAssetModal" tabindex="-1" aria-labelledby="editAssetModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="editAssetModalLabel">Edit Asset</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <form *ngIf="selectedAsset">
-          <div class="mb-3">
-            <label for="assetName" class="form-label">Asset Name</label>
-            <input type="text" class="form-control" id="assetName" [(ngModel)]="selectedAsset.name" name="assetName" />
-          </div>
-          <div class="mb-3">
-            <label for="assetPath" class="form-label">Asset Path</label>
-            <input type="text" class="form-control" id="assetPath" [(ngModel)]="selectedAsset.path" name="assetPath" />
-          </div>
-          <div class="mb-3">
-            <label for="assetSize" class="form-label">File Size</label>
-            <input type="number" class="form-control" id="assetSize" [(ngModel)]="selectedAsset.fileSize" name="assetSize" />
-          </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" (click)="saveAsset()" data-bs-dismiss="modal">Save Changes</button>
-      </div>
+<!-- Error message if project not found -->
+<div class="container mt-4" *ngIf="!isLoading && (!project$.value || !project$.value.projectId)">
+  <div class="alert alert-danger">
+    <p class="text-center">Project not found or unable to load project data.</p>
+    <div class="text-center mt-3">
+      <button class="btn btn-primary" routerLink="/projects">Return to Projects</button>
     </div>
   </div>
 </div>
@@ -94,5 +112,5 @@
 <!-- Raw Data Viewer for Debugging -->
 <a class="dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">Show Raw Data</a>
 <ul class="dropdown-menu">
-  <li><pre>{{ project | json }}</pre></li>
+  <li><pre>{{ project$.value | json }}</pre></li>
 </ul>
