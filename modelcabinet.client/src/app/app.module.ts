@@ -16,7 +16,7 @@ import { ProjectPageComponent } from "./projects/project-page/project-page.compo
 import { ContributorsComponent } from "./components/contributors/contributors.component";
 import { ComingSoonComponent } from './coming-soon/coming-soon.component';
 import { FileSizePipe } from "./Pipes/file-size.pipe";
-import { AboutModelCabinetComponent } from "./About-ModelCabinet/About-ModelCabinet.component";
+import { AboutModelCabinetComponent } from "./about-modelcabinet/about-modelcabinet.component";
 import { ViewportComponent } from "./viewport/viewport.component";
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { TagLabelComponent } from './tags/tag-label/tag-label.component';

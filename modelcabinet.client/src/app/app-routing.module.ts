@@ -4,12 +4,12 @@ import { LandingPageComponent } from './landing-page/landing-page.component';
 import { ProjectListPageComponent } from './projects/project-list-page/project-list-page.component';
 import { ProjectPageComponent } from './projects/project-page/project-page.component';
 import { ChangelogComponent } from './changelog/changelog.component'
-import { HelpProjectComponent } from './Help-Page/Help-Page.component';
+import { HelpProjectComponent } from './help-page/help-page.component';
 import { AssetListComponent } from './asset/asset-list/asset-list.component';
 import { AssetDetailComponent } from './asset/asset-detail/asset-detail.component';
 import { ProfilePageComponent } from './profile-page/profile-page.component';
 import { ComingSoonComponent } from './coming-soon/coming-soon.component';
-import { AboutModelCabinetComponent } from './About-ModelCabinet/About-ModelCabinet.component';
+import { AboutModelCabinetComponent } from './about-modelcabinet/about-modelcabinet.component';
 import { TagEditComponent } from './tags/tag-edit/tag-edit.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
@@ -31,7 +31,7 @@ const routes: Routes = [
   { path: 'assets/:id', component: AssetDetailComponent, canActivate: [authGuard] },
   { path: 'user', component: ProfilePageComponent, canActivate: [authGuard] },
   { path: 'coming-soon', component: ComingSoonComponent },
-  { path: 'edit-Tags', component: TagEditComponent, canActivate: [authGuard] },
+  { path: 'edit-tags', component: TagEditComponent, canActivate: [authGuard] },
   { path: 'login', component: LoginComponent, canActivate: [nonAuthGuard] },
   { path: 'register', component: RegisterComponent, canActivate: [nonAuthGuard] },
   { path: '**', component: PageNotFoundComponent }
