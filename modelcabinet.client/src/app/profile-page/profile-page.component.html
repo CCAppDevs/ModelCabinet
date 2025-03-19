@@ -1,51 +1,66 @@
 <!--Profile page-->
-<div class="container text-center py-5">
-
-    <!--Routing of the nav bar-->
-    <nav>
-        <a href="index.html">Home</a>
-        <a href="projects.html">Projects</a>
-        <a href="help.html">Help</a>
-    </nav>
-
-    <body>
-        <header>
-            <h1>Profile: UserID Temp</h1>
-        </header>
-
-        <div class="profile-container">
-            <div class="profile-header">
-                <img src="profile-pic-placeholder.png" alt="Profile Picture">
-                <h2>John Doe</h2>
-                <p>3D Model Designer | Enthusiast</p>
+<div class="">
+    <img class="w-100 mb-3" src="https://placehold.co/1600x300" alt="Profile Banner" />
+    <div class="row">
+        <div class="col-12 col-md-9 row container justify-content-md-center">
+            
+            <!--From Project List Page-->
+            <div class="col-12 col-md-6 text-center bg-body-secondary"
+                    *ngFor="let ProjectItem of projects">
+                <span class="h2 fw-bold text-center">{{ ProjectItem.name }}</span>
+                <span>{{ ProjectItem.shortDescription }}</span>
+                <span>
+                    <b>Last Modified:</b>
+                    <span class="h5">{{ ProjectItem.modifiedDate | date:'short' }}</span>
+                </span>
+                <br />
+                <span>
+                    <b>Author:</b>
+                    <span class="h5">{{ ProjectItem.author }}</span>
+                </span>
+                <br />
+                <span class="col fw-bold">Tags:</span>
+                <div class="row row-cols-auto justify-content-md-center">
+                    <app-tag-label class="col"
+                                    *ngFor="let projectTag of ProjectItem.projectTags"
+                                    [tagLabel]="projectTag.tag">
+                    </app-tag-label>
+                </div>
+                <div class="row mt-3">
+                    <div class="col">
+                        <a routerLink="{{ ProjectItem.projectId }}"
+                            class="card-link btn btn-primary">
+                            View Project
+                        </a>
+                    </div>
+                </div>
             </div>
-            <div class="profile-details">
-                <div class="profile-section">
-                    <h3>About</h3>
-                    <p>
-                        Passionate about creating and sharing 3D models. Experienced in using various design tools
-                        to bring ideas to life.
-                    </p>
-                </div>
-                <div class="profile-section">
-                    <h3>Recent Activity</h3>
-                    <ul>
-                        <li>Uploaded: Complex Gear Assembly</li>
-                        <li>Downloaded: Bolt & Nut Collection</li>
-                        <li>Shared: Open Frame Drone STL</li>
-                    </ul>
-                </div>
-                <div class="profile-section">
-                    <h3>Contact</h3>
-                    <ul>
-                        <li>Website: johndoe3dportfolio.com</li>
-                        <li>Location: Seattle, WA</li>
-                    </ul>
+
+        </div>
+        <div class="col-12 col-md-3 mp-0 order-first order-md-last">
+            <div class="card">
+                <img class="card-img-top d-none d-md-block" src="{{ displayUser.avatarUrl ?? 'https://placehold.co/400x400' }}" alt="Profile Icon" />
+                <div class="card-body">
+                    <span class="h1 text-center card-title">{{ displayUser.displayName }}</span>
+                    <p class="card-text">{{ displayUser.biography }}</p>
+                    
+                    <span class="badge rounded-pill {{ displayUser.isProfilePublic ? 'text-bg-secondary' : 'text-bg-info' }}">{{ displayUser.isProfilePublic ? "Public" : "Private" }} profile</span><br />
+
+                    <span class="card-text" *ngIf="displayUser.location != null"><i class="bi bi-geo-alt-fill"></i>&nbsp;{{ displayUser.location }}</span>&nbsp;
+                    
+                    <span class="card-text" *ngIf="displayUser.website != null"><i class="bi bi-globe"></i>&nbsp;{{ displayUser.website }}</span>&nbsp;
+                    
+                    <span class="card-text" *ngIf="displayUser.twitterHandle != null"><i class="bi bi-twitter"></i>&nbsp;{{ displayUser.twitterHandle }}</span>&nbsp;
+                    
+                    <span class="card-text" *ngIf="displayUser.githubUsername != null"><i class="bi bi-github"></i>&nbsp;{{ displayUser.githubUsername }}</span>&nbsp;
+                    
+                    <span class="card-text" *ngIf="displayUser.preferredLanguage != null"><i class="bi bi-chat"></i>&nbsp;{{ displayUser.preferredLanguage }}</span>&nbsp;
+                    
+                    <span class="card-text" *ngIf="displayUser.timeZone != null"><i class="bi bi-clock"></i>&nbsp;{{ displayUser.timeZone }}</span>&nbsp;
+
+                    <p class="mt-md-1"><span class="fw-bold">Joined:</span> {{ displayUser.dateJoined | date:'short' }} <br /> <span class="fw-bold">Last Active:</span> {{ displayUser.lastActive | date:'short' }}</p>
                 </div>
             </div>
         </div>
-        <footer>
-            &copy; 2024 ModelCabinet. All Rights Reserved.
-        </footer>
-    </body>
+    </div>
 </div>
